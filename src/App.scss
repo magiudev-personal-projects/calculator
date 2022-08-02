@@ -1,0 +1,124 @@
+@font-face {
+  font-family: 'Digital';
+  src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot');
+  src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix')
+      format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2')
+      format('woff2'),
+    url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff')
+      format('woff'),
+    url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf')
+      format('truetype'),
+    url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7')
+      format('svg');
+}
+
+$relief: 5px;
+
+@mixin flexCenter(){
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  font-weight: bold;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.root {
+  height: 100vh;
+  @include flexCenter();
+  display: flex; 
+  background-color: #bcb8b1;  
+}
+
+.calculator {
+  font-size: 2.5rem;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #302e30;
+  display: grid;
+  grid-template-rows: minmax(auto, 10vh) repeat(5, minmax(6.5rem, 10vh));
+  grid-template-columns: repeat(4, minmax(7rem, 10vw));
+  gap: 10px; 
+  grid-template-areas:
+    "screen   screen    screen    screen"
+    "clear    backspace divide    multiply"
+    "seven    eight     nine      subtract"
+    "four     five      six       add"
+    "one      two       three     equals"
+    "zero     zero      decimal   equals";
+}
+
+@each $num in clear, backspace, divide, multiply, subtract, add, decimal, equals, zero, one, two, three, four, five, six, seven, eight, nine {
+  ##{$num} {grid-area: $num;}
+}
+
+.screen {
+  padding: 10px; 
+  border-radius: 5px;
+  background-color: #9da48f;
+  color: #36423a; 
+  overflow: hidden;
+  position: relative; 
+  grid-area: screen; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; 
+  align-items: flex-end;
+  font-family: digital;
+  font-size: 3rem; 
+}
+
+.display,
+.msg {
+  white-space: nowrap;
+  position: absolute;
+}
+
+.msg {
+  font-size: 1.6rem;
+  top: 5px;
+  font-weight: normal; 
+}
+
+.btn {
+  font-size: 1.8rem;
+  background-color: #68717b;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  box-shadow: $relief $relief 0 black;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+#clear, #backspace {
+  background-color: #a2304a; 
+}
+
+#divide, #multiply, #subtract, #add {
+  background-color: #3b3b3b;
+}
+
+#equals {
+  background-color: #24506e;
+}
+
+.btn--pressed {
+  top: $relief;
+  left: $relief;
+  box-shadow: none; 
+}
